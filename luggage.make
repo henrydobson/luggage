@@ -442,6 +442,12 @@ l_usr_local_bin: l_usr_local
 	@sudo chown -R root:wheel ${WORK_D}/usr/local/bin
 	@sudo chmod -R 755 ${WORK_D}/usr/local/bin
 
+# Added by Henry Dobson
+l_usr_local_pebbleit: l_usr_local
+	@sudo mkdir -p ${WORK_D}/usr/local/pebbleit
+	@sudo chown -R root:wheel ${WORK_D}/usr/local/pebbleit
+	@sudo chmod -R 755 ${WORK_D}/usr/local/pebbleit
+
 l_usr_local_lib: l_usr_local
 	@sudo mkdir -p ${WORK_D}/usr/local/lib
 	@sudo chown -R root:wheel ${WORK_D}/usr/local/lib
@@ -651,6 +657,36 @@ l_Library_LaunchDaemons: l_Library
 	@sudo mkdir -p ${WORK_D}/Library/LaunchDaemons
 	@sudo chown root:wheel ${WORK_D}/Library/LaunchDaemons
 	@sudo chmod 755 ${WORK_D}/Library/LaunchDaemons
+
+# Added by Henry Dobson
+l_Library_Management: l_Library
+	@sudo mkdir -p ${WORK_D}/Library/Management
+	@sudo chown root:wheel ${WORK_D}/Library/Management
+	@sudo chmod 775 ${WORK_D}/Library/Management
+
+# Added by Henry Dobson
+l_Library_Management_bin: l_Library_Management
+	@sudo mkdir -p ${WORK_D}/Library/Management/bin
+	@sudo chown root:wheel ${WORK_D}/Library/Management/bin
+	@sudo chmod 775 ${WORK_D}/Library/Management/bin
+
+# Added by Henry Dobson
+l_usr_local_outset_boot-every: l_usr_local
+	@sudo mkdir -p ${WORK_D}/usr/local/outset/boot-every
+	@sudo chown root:wheel ${WORK_D}/usr/local/outset/boot-every
+	@sudo chmod -R 755 ${WORK_D}/usr/local/outset/boot-every
+
+# Added by Henry Dobson
+l_usr_local_outset_boot-once: l_usr_local
+	@sudo mkdir -p ${WORK_D}/usr/local/outset/boot-once
+	@sudo chown root:wheel ${WORK_D}/usr/local/outset/boot-once
+	@sudo chmod -R 755 ${WORK_D}/usr/local/outset/boot-once
+
+# Added by Henry Dobson
+l_usr_local_outset_login-once: l_usr_local
+	@sudo mkdir -p ${WORK_D}/usr/local/outset/login-once
+	@sudo chown root:wheel ${WORK_D}/usr/local/outset/login-once
+	@sudo chmod -R 755 ${WORK_D}/usr/local/outset/login-once
 
 l_Library_Preferences: l_Library
 	@sudo mkdir -p ${WORK_D}/Library/Preferences
@@ -869,6 +905,22 @@ pack-Library-LaunchAgents-%: % l_Library_LaunchAgents
 pack-Library-LaunchDaemons-%: % l_Library_LaunchDaemons
 	@sudo ${INSTALL} -m 644 -g wheel -o root "${<}" ${WORK_D}/Library/LaunchDaemons
 
+# Added by Henry Dobson
+pack-Library-Management-%: % l_Library_Management
+	@sudo ${INSTALL} -m 775 -g wheel -o root "${<}" ${WORK_D}/Library/Management
+
+# Added by Henry Dobson
+pack-Library-Management-bin-%: % l_Library_Management_bin
+	@sudo ${INSTALL} -m 775 -g wheel -o root "${<}" ${WORK_D}/Library/Management/bin
+
+# Added by Henry Dobson
+pack-outset-everyboot-scripts-%: % l_usr_local_outset_everyboot-scripts
+	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/everyboot-scripts
+
+# Added by Henry Dobson
+pack-outset-login-once-%: % l_usr_local_outset_login-once
+	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/login-once
+
 pack-Library-Preferences-%: % l_Library_Preferences
 	@sudo ${INSTALL} -m 644 -g admin -o root "${<}" ${WORK_D}/Library/Preferences
 
@@ -950,6 +1002,9 @@ pack-usr-sbin-%: % l_usr_sbin
 
 pack-usr-local-bin-%: % l_usr_local_bin
 	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/bin
+
+pack-usr-local-pebbleit-%: % l_usr_local_pebbleit
+	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/pebbleit
 
 pack-usr-local-sbin-%: % l_usr_local_sbin
 	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/sbin
